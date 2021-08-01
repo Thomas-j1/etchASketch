@@ -5,6 +5,7 @@ body {
     height: 100vh;
     justify-items: center;
     align-items: center;
+    background-color: lightgrey;
 }
 
 #wrapper{
@@ -13,7 +14,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-items: center;
+    justify-content: center;
 }
 
 #optionsWrapper{
@@ -26,38 +27,39 @@ body {
 }
 
 #grid {
-    width: 80%;
-    height: 80%;
+    height: 600px;
+    width: 600px;
+    min-width: 300px;
+    min-height: 300px;
     display: flex;
     flex-wrap: wrap;
-}
-
-.row {
-    display: flex;
-    width: 100%;
-    height: 6.25%;
+    border: 2px solid black;
+    box-shadow: 0px 0px 30px;
 }
 
 .box{
-    text-align: center;
-    border: 1px dotted black;
-    width: 6.25%;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(255, 255, 255, 1);
 }
 
 button{
     width: 10%;
     color: white;
+    font-size: 13px;
 }
 
 #reset{
     width: 40%;
-    margin-left: 30%;
-    margin-right: 30%;
+    margin-right: 10%;
     color: black;
 }
 
+#nBoxes{
+    width: 30%;
+    margin-left: 10%;
+}
+
 #optionsWrapper p{
+    height: 30%;
     width: 100%;
     text-align: center;
 }

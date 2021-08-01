@@ -1,25 +1,31 @@
 
 const wrapper = document.querySelector('#grid');
-const numberOfBoxes = 16;
+let numberOfBoxes = 16;
 const resetButton = document.querySelector('#reset');
 const opacitySlider = document.querySelector('#opacitySlider');
+const boxInputField = document.querySelector('#nBoxes');
 
 let drawColor = 'rgba(0,0,0,0.5)';
 let opacity = 0.5;
 
-for (let i = 0; i<numberOfBoxes; i++){
-    let row = document.createElement('div');
-    row.className='row';
+let boxes; 
+
+function createBoxes(){
     for (let i = 0; i < numberOfBoxes; i++) {
-        let box = document.createElement('div');
-        box.className = 'box';
-        row.appendChild(box);
+        for (let i = 0; i < numberOfBoxes; i++) {
+            let box = document.createElement('div');
+            box.className = 'box';
+            box.style.width = `${1 / numberOfBoxes * 100}%`;
+            box.style.height = `${1 / numberOfBoxes * 100}%`;
+            wrapper.appendChild(box);
+        }
     }
-    wrapper.appendChild(row);
+    boxes = document.querySelectorAll('.box');
+    boxes.forEach(box => box.addEventListener('mouseover', onHover));
+
 }
 
-const boxes = document.querySelectorAll('.box');
-
+createBoxes();
 function onHover(e){
     let currentColor = getComputedStyle(this).backgroundColor;
     let newColor = blendColors(currentColor);
@@ -52,6 +58,11 @@ function blendColors(currentColor){
     b1 = parseFloat(backgroundColorArray[2]);
     a1 = parseFloat(backgroundColorArray[3]);
 
+    if(isNaN(a1)){
+        a1 = 1.0;
+    }
+
+
     a01 = (1 - a0) *a1 + a0;
     r01 = ((1 - a0) *a1*r1 + a0*r0) / a01;
     g01 = ((1 - a0) *a1*g1 + a0*g0) / a01;
@@ -59,14 +70,13 @@ function blendColors(currentColor){
 
     let newColorArray = [r01, g01, b01, a01];
     let newColor = 'rgba(' + newColorArray.join() + ')';
-    
+    console.log(newColor);
     return newColor;
 }
 
-boxes.forEach(box => box.addEventListener('mouseover', onHover) );
 
 function reset(){
-    boxes.forEach(box => box.style.backgroundColor='white');
+    boxes.forEach(box => box.style.backgroundColor = 'rgba(255, 255, 255, 255)');
 }
 
 resetButton.addEventListener('click', reset);
@@ -94,7 +104,6 @@ function changeRGBA(newValue, oldIndex){
     let currentColor = drawColor;
     let rgbaArray = rgbaValuesToArray(currentColor);
     rgbaArray[oldIndex] = newValue;
-    console.log(rgbaArray);
     let newColor = 'rgba(' + rgbaArray.join() + ')';
     drawColor = newColor;
 }
@@ -107,4 +116,20 @@ function rgbaValuesToArray(rgbaValues) { //create array from RGBA values
 
 function updateOpacity(){
     changeRGBA(opacity, 3);
+}
+
+boxInputField.addEventListener('change', changeBoxCount);
+
+function changeBoxCount(){
+    if(boxes){
+        boxes.forEach(box => box.remove());
+    }
+    numberOfBoxes = boxInputField.value;
+    if(numberOfBoxes<1){
+        numberOfBoxes=1;
+    }
+    if(numberOfBoxes>100){
+        numberOfBoxes= 100;
+    }
+    createBoxes();
 }
