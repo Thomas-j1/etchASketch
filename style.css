@@ -27,10 +27,8 @@ body {
 }
 
 #grid {
-    height: 600px;
-    width: 600px;
-    min-width: 300px;
-    min-height: 300px;
+    width: 80vmin; 
+    height: 80vmin;
     display: flex;
     flex-wrap: wrap;
     border: 2px solid black;
