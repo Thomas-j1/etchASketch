@@ -42,6 +42,7 @@ body {
     text-align: center;
     border: 1px dotted black;
     width: 6.25%;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 button{

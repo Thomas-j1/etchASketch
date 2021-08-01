@@ -4,7 +4,7 @@ const numberOfBoxes = 16;
 const resetButton = document.querySelector('#reset');
 const opacitySlider = document.querySelector('#opacitySlider');
 
-let drawColor = 'rgba(0,0,0,0)';
+let drawColor = 'rgba(0,0,0,128)';
 let opacity = 0.5;
 
 for (let i = 0; i<numberOfBoxes; i++){
@@ -21,24 +21,54 @@ for (let i = 0; i<numberOfBoxes; i++){
 const boxes = document.querySelectorAll('.box');
 
 function onHover(e){
-    let currentColor = this.style.backgroundColor;
+    let currentColor = getComputedStyle(this).backgroundColor;
     console.log(currentColor);
-    this.style.backgroundColor=drawColor;
+    let newColor = addColor(currentColor);
+    console.log(newColor);
+    this.style.backgroundColor=newColor;
 }
 
-/* XT + (1 - X)(YM + (1 - Y)B)=W
+function addColor(currentColor){
+    //blended = front + back * (1.0 - front.a)
+    //outputRed = (foregroundRed * foregroundAlpha) + (backgroundRed * (1.0 - foregroundAlpha));
 
-X = the opacity of the top layer, scalar 0...1
+    let backgroundColorArray = rgbaValuesToArray(currentColor);
+    let drawColorArray = rgbaValuesToArray(drawColor);
+    let newColorArray = [];
 
-T = the RGB color vector of the top layer
+    console.log(drawColorArray.length);
 
-Y = the opacity of the middle layer
+    for(let i = 0; i<drawColorArray.length-1; i++){
+        let newValue = parseFloat(drawColorArray[i]*opacity) + (parseFloat(backgroundColorArray[i]) *
+        (1.0-opacity));
+        console.log(newValue);
+        newColorArray.push(newValue);
+    }
+    console.log('old op: ' + ((parseFloat(backgroundColorArray[3]) + opacity)));
+    newColorArray.push(opacity);
+    console.log(newColorArray);
 
-M = the RGB color vector of the middle layer
+    let newColor = 'rgba(' + newColorArray.join() + ')';
+    
+    return newColor;
+}
 
-B = the RGB color vector of the bottom layer
 
-W = the RGB color vector of the wanted mixing result */
+/*
+Short answer:
+
+if we want to overlay c0 over c1 both with some alpha then
+
+a01 = (1 - a0)·a1 + a0
+
+r01 = ((1 - a0)·a1·r1 + a0·r0) / a01
+
+g01 = ((1 - a0)·a1·g1 + a0·g0) / a01
+
+b01 = ((1 - a0)·a1·b1 + a0·b0) / a01
+
+Note that division by a01 in the formulas for the components of color. It's important.
+*/
 
 boxes.forEach(box => box.addEventListener('mouseover', onHover) );
 
