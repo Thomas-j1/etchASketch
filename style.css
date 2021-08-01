@@ -1,0 +1,41 @@
+
+body {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    justify-items: center;
+    align-items: center;
+}
+
+#wrapper{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+}
+
+#optionsWrapper{
+    height: 20%;
+
+}
+
+#grid {
+    width: 80%;
+    height: 80%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.row {
+    display: flex;
+    width: 100%;
+    height: 6.25%;
+}
+
+.box{
+    text-align: center;
+    border: 1px dotted black;
+    width: 6.25%;
+}
