@@ -10,13 +10,14 @@
 </head>
 <body>
     <div id="wrapper">
-        <!-- <div id="optionsWrapper">
-            <button value="black" id="black">Black</button>
-            <button value="red" id="red">Red</button>
-            <button value="green" id="green">Green</button>
-            <button value="blue" id="blue">Blue</button>
-            <p>Opacity: <br> 0<input type="range" min="0" max="100" value="0.5" class="slider" id="myRange">1</p>
-        </div> -->
+        <div id="optionsWrapper">
+            <button id="reset">Reset</button>
+            <button value="rgba(0,0,0,0.5)" class="colorButton" id="black">Black</button>
+            <button value="rgba(255,0,0,0.5)" class="colorButton" id="red">Red</button>
+            <button value="rgba(0,255,0,0.5)" class="colorButton" id="green">Green</button>
+            <button value="rgba(0,0,255,0.5)" class="colorButton" id="blue">Blue</button>
+            <p>Opacity: <br> 0<input type="range" min="0" max="100" value="50" class="slider" id="opacitySlider">1</p>
+        </div>
         <div id="grid">
 
         </div>

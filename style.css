@@ -17,8 +17,12 @@ body {
 }
 
 #optionsWrapper{
-    height: 20%;
-
+    height: 15%;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
 }
 
 #grid {
@@ -38,4 +42,21 @@ body {
     text-align: center;
     border: 1px dotted black;
     width: 6.25%;
+}
+
+button{
+    width: 10%;
+    color: white;
+}
+
+#reset{
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+    color: black;
+}
+
+#optionsWrapper p{
+    width: 100%;
+    text-align: center;
 }
